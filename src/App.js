@@ -1,28 +1,62 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+
+import { showAdvancedCalcAction, showBasicCalcAction } from '../src/core/calculator/action';
+import { getIsAdvancedCalShowing } from '../src/core/calculator/selector';
+
+import ButtonContainer from './component/buttonContainer/buttonContainer';
+import Calculator from './component/calculator/calculator';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.showAdcancedCalc = this.showAdcancedCalc.bind(this)
+    this.showBasicCalc = this.showBasicCalc.bind(this)
+  }
+
+  showAdcancedCalc() {
+    this.props.showAdcancedCalc()
+  }
+
+  showBasicCalc() {
+    this.props.showBasicCalc()
+  }
+
   render() {
+
+    const { isAdvancedCalShowing } = this.props
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Calculator isAdvancedCalShowing={isAdvancedCalShowing}/>
+        <ButtonContainer
+          calculatorType={isAdvancedCalShowing === true ? "Basic" : "Advanced"}
+          buttonAction={isAdvancedCalShowing === true ? this.showBasicCalc : this.showAdcancedCalc}/>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAdvancedCalShowing: getIsAdvancedCalShowing(state)
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    showAdcancedCalc: () => {
+      dispatch(
+        showAdvancedCalcAction()
+      )},
+    showBasicCalc: () => {
+      dispatch(showBasicCalcAction()
+    )}
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
