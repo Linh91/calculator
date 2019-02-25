@@ -12,11 +12,6 @@ import { powerSymbol } from '../../constant';
 import './calculator.css';
 
 class Calculator extends Component {
-  constructor(props){
-    super(props);
-    this.state = {}
-  }
-
   render() {
     const {
       isAdvancedCalShowing,
@@ -35,35 +30,35 @@ class Calculator extends Component {
         return (
           <button
             key={key}
-            className="buttonClass"
+            className="ButtonClass"
             onClick={clear.bind(this)}>{btn}</button>
         )
       } else if (btn === "=") {
           return (
             <button
               key={key}
-              className="buttonClass"
+              className="ButtonClass"
               onClick={equal.bind(this, value)}>{btn}</button>
           )
       } else if (btn === powerSymbol) {
         return (
           <button
             key={key}
-            className="buttonClass"
+            className="ButtonClass"
             onClick={powerOfTwo.bind(this, value)}>{btn}</button>
         )
       } else if (btn === "√") {
         return (
           <button
             key={key}
-            className="buttonClass"
+            className="ButtonClass"
             onClick={squareRoot.bind(this, value)}>{btn}</button>
         )
       } else {
         return (
           <button
             key={key}
-            className="buttonClass"
+            className="ButtonClass"
             onClick={addition.bind(this, btn)}>{btn}</button>
         )
       }
@@ -75,15 +70,15 @@ class Calculator extends Component {
     const buttonType = isAdvancedCalShowing ? advancedCalc : basicCalc
 
     return (
-      <div className="calculatorContainer">
-        <div className="calculatorName">SAMCALC</div>
-        <div className="displayContainer">
+      <div className="CalculatorContainer">
+        <div className="CalculatorName">SAMCALC</div>
+        <div className="DisplayContainer">
           <input
-            className="display"
+            className="Display"
             type="text"
             value={value}></input>
         </div>
-        <div className="buttonsContainer">
+        <div className="ButtonsContainer">
           {buttonType}
         </div>
       </div>
